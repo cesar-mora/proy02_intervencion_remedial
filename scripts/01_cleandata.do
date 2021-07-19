@@ -59,7 +59,7 @@ tempfile acompanatic
 save 	`acompanatic'
 
 * Multigrado
-import excel "$raw/Padron IIEE AP_2022_caracterización_12JULIO.xlsx", sheet("Padrón_IIEE") firstrow clear
+import excel "$raw/padron_multigrado_2022.xlsx", sheet("Padrón_IIEE") firstrow clear
 keep 	cod_mod anexo
 gen		acompanamiento_multigrado_2022 = 1
 tempfile multigrado

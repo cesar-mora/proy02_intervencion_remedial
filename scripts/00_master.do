@@ -2,17 +2,45 @@
   Construcción del indicador de necesidad de atención
 -------------------------------------------------------------------*/
 	
+* Definir Usuarios
+* --------------------
+
+*Número de usuario:
+* Brandon Casa 				1
+* PC Analista UP 18			2
+* 						    3
+
+*Establecer este valor para el usuario que actualmente usa el script
+global user  2
+	
 * Definir Globales
 * ---------------------
-		
-	* Aquí se debe incluir la ruta del proyecto de github:
-    global github 			"/Users/bran/Documents/GitHub/intervencion_remedial"
-	
-	global raw				"$github/data/raw"
-	global clean			"$github/data/clean"
+
+* Usuario 1
+if $user == 1 {
+       global github 		"/Users/bran/Documents/GitHub/intervencion_remedial"
+}
+
+if $user == 1 {
+       global onedrive 		"/Users/bran/Documents/GitHub/intervencion_remedial"
+}
+
+* Usuario 2
+if $user == 2 {
+       global github 		"D:/brandon_minedu/GitHub/intervencion_remedial"
+}
+
+if $user == 2 {
+       global onedrive 		"B:/OneDrive - Ministerio de Educación/unidad_B/2022/1. Estudios Data/02_intervencion_remedial"
+}
+
+	* Globales
 	global scripts			"$github/scripts"
-	global output			"$github/output"
+	global clean			"$onedrive/01_data/clean"
+	global raw				"$onedrive/01_data/raw"
+	global output			"$onedrive/02_output"
    
+
 	set more off, permanent  	
 
 /*------------------------------------------------------------------
@@ -23,7 +51,7 @@
 *------------------------------------------------------------------
 * Limpiar, unir bases de datos y crear variables de interés
 
-if (0) {
+if (1) {
 	do "$scripts/01_cleandata.do"			// Limpia bases de datos
 }
 
@@ -48,7 +76,7 @@ if (0) {
 *------------------------------------------------------------------
 * Crear indicadores de necesidad de atención
 
-if (0) {
+if (1) {
 	do "$scripts/02_construir_data.do"		
 }
 

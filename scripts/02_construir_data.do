@@ -183,14 +183,5 @@ label variable d_region				"Dre Region"
 * Ordenamos datos
 order cod_mod anexo codlocal d_niv_mod d_cod_car d_estado forma_eib eib d_gestion   d_forma d_tipssexo d_ges_dep dareacenso d_region codooii d_dreugel nivel_ebr_noebr n_ie d_qaliwarma tipo_servicio_qaliwarma acompanamiento_eib_2022 acompanatic_2022 acompanamiento_multigrado_2022 acompanamiento_polidocente_2022 acomp_pedagogico indicador_atencion_prim indicador_atencion_sec indicador_atencion_eib ind_leng_ece_primaria ind_mat_ece_primaria ind_leng_ece_secundaria ind_mat_ece_secundaria ind_eib_lengua1 ind_eib_lengua2  eib  mat_recup_primero mat_recup_segundo mat_recup_tercero mat_recup_cuarto mat_recup_quinto mat_recup_sexto mat_total_primero  mat_total_segundo mat_total_tercero mat_total_cuarto mat_total_quinto mat_total_sexto  mat_recup mat_total area_21
 
-
-
-
 ** Guardar data final
 save "$clean/data_construida.dta", replace
-
-** Exportar en formato dta
-save "$output/indicador_atencion.dta", replace
-
-** Exportar en formato xlsx
-export excel using "$output/indicador_atencion.xlsx", firstrow(variables) replace
