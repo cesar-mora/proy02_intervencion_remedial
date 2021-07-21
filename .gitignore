@@ -134,3 +134,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*.dta
+*.xls
+*.zip
+*.dbf
+*.xlsx
+*.sav
