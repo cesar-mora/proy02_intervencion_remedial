@@ -43,7 +43,7 @@ preserve
 *----------------------
 
 * EIB
-import excel "$raw/Base_padrones_2022.xlsx", sheet("eib") firstrow clear
+import excel "$raw/padron_acompanatic_eib.xlsx", sheet("eib") firstrow clear
 rename Anexo anexo
 keep	cod_mod anexo
 gen 	acompanamiento_eib_2022 = 1
@@ -51,7 +51,7 @@ tempfile eib
 save 	`eib'
 
 * Acompanatic
-import	excel "$raw/Base_padrones_2022.xlsx", sheet("acompanatic") firstrow clear
+import	excel "$raw/padron_acompanatic_eib.xlsx", sheet("acompanatic") firstrow clear
 rename Anexo anexo
 keep	cod_mod anexo
 gen 	acompanatic_2022 = 1
@@ -59,14 +59,14 @@ tempfile acompanatic
 save 	`acompanatic'
 
 * Multigrado
-import excel "$raw/padron_multigrado_2022.xlsx", sheet("Padrón_IIEE") firstrow clear
+import excel "$raw/padron_multigrado.xlsx", sheet("Padrón_IIEE") firstrow clear
 keep 	cod_mod anexo
 gen		acompanamiento_multigrado_2022 = 1
 tempfile multigrado
 save 	`multigrado'
 
 * Polidocente
-import excel "$raw/Padron_propuesto_polidocente.xls", sheet(Sheet1) firstrow clear
+import excel "$raw/padron_polidocente.xls", sheet(Sheet1) firstrow clear
 rename Anexo anexo
 rename CodMod cod_mod
 tostring cod_mod, replace
@@ -132,7 +132,7 @@ preserve
 * Realizamos merge con Siagie 2021 - contiene variable de promoción guiada a nivel de IE 
 *----------------------
 
-use 	"$raw/prima_sec_promocionguiada.dta", clear
+use 	"$raw/siagie_grado.dta", clear
 replace DSC_GRADO=trim(DSC_GRADO)
 
 keep COD_MOD ANEXO  MAT_TOTAL MAT_RECUPERACION  DSC_GRADO AREA_21
@@ -165,7 +165,7 @@ tempfile 	promocionguiada
 save 		`promocionguiada'
 
 
-use "$raw/prima_sec_promocionguiada.dta", clear
+use "$raw/siagie_grado.dta", clear
 rename *, lower
 collapse (first) area_21, by(cod_mod anexo)
 
@@ -203,7 +203,7 @@ preserve
 
 * Match con base de datos integrada - contiene indicadores de la ECE 2018 y 2019
 *----------------------
-use "$raw/Padron2020VMJPT210615-Tarde.dta", clear
+use "$raw/Padron2020VMJPT210615-brenda.dta", clear
 
 tostring cod_mod, replace
 tostring anexo, replace
@@ -251,7 +251,7 @@ preserve
 
 * Merge con BD Nexus - Contiene información de número de docentes
 *----------------------
-use "$raw/Nexus por cod_mod.dta", replace
+use "$raw/nexus_cod_mod.dta", replace
 
 rename codmodce cod_mod
 

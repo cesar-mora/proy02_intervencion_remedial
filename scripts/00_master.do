@@ -6,8 +6,8 @@
 * --------------------
 
 *Número de usuario:
-* Brandon Casa 				1
-* PC Analista UP 18			2
+* PC Analista UP 18			1
+* Brandon Casa 				2
 * 						    3
 
 *Establecer este valor para el usuario que actualmente usa el script
@@ -18,29 +18,19 @@ global user  1
 
 * Usuario 1
 if $user == 1 {
-       global github 		"/Users/bran/Documents/GitHub/intervencion_remedial"
+       global proyecto 		"B:/OneDrive - Ministerio de Educación/unidad_B/2022/1. Estudios Data/proy02_intervencion_remedial"
 }
-
-if $user == 1 {
-       global onedrive 		"/Users/bran/OneDrive - Ministerio de Educación/MINEDU_Brandon/2022/01_estudios_data/02_intervencion_remedial"
-}
-
 * Usuario 2
 if $user == 2 {
-       global github 		"D:/brandon_minedu/GitHub/intervencion_remedial"
-}
-
-if $user == 2 {
-       global onedrive 		"B:/OneDrive - Ministerio de Educación/unidad_B/2022/1. Estudios Data/02_intervencion_remedial"
+       global proyecto 		"/Users/bran/Documents/GitHub/intervencion_remedial"
 }
 
 	* Globales
-	global scripts			"$github/scripts"
-	global clean			"$onedrive/01_data/clean"
-	global raw				"$onedrive/01_data/raw"
-	global output			"$onedrive/02_output"
+	global scripts			"$proyecto/scripts"
+	global clean			"$proyecto/data/clean"
+	global raw				"$proyecto/data/raw"
+	global output			"$proyecto/output"
    
-
 	set more off, permanent  	
 
 /*------------------------------------------------------------------
@@ -125,4 +115,4 @@ if (1) {
 
 * Generar imputación basado en distancia
 
-* Se realiza en Python abriendo el archivo "$scripts/03_imputacion_ece.py"
+* Se realiza en Python abriendo el archivo "$scripts/06_imputacion_ece.py"
