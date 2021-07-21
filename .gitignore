@@ -33,6 +33,13 @@ MANIFEST
 *.manifest
 *.spec
 
+*.dta
+*.xls
+*.zip
+*.dbf
+*.xlsx
+*.sav
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
