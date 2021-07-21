@@ -29,17 +29,51 @@ drop indicador_atencion_prim indicador_atencion_sec
 ** Generar focalización
 *--------------------------------------------
 
-* Escenario 1
-gen targeted1=0
-replace targeted1=1 if indicador_atencion>=0.61 & eib == 1
+* Focalización TaRL
+***********
 
-* Escenario 2
-gen targeted2=0
-replace targeted2=1 if indicador_atencion>=0.85 & eib == 1
+* Escenario 1 (2022)
+*gen targeted1=0
+*replace targeted1=1 if indicador_atencion>=0.61 & eib != 1
 
-* Escenario 3
-gen targeted3=0
-replace targeted3=1 if indicador_atencion>=0.90 & eib == 1
+* Target 2023 (todos los considerados el 2022 + 20% de IIEE
+*gen targeted1=0
+*replace targeted1=1 if indicador_atencion>=0.57 & eib == 0
+*keep if targeted1== 1
+* End Target 2023
+	
+* Target 2024 (promoción 2023)
+*drop if eib == 1
+*drop if indicador_atencion < 0.57
+*drop if indicador_atencion > 0.61
+*gen targeted1 = 1
+* End target 2024
+	
+* Target 2024 (promoción 2024)
+*drop if eib == 1
+*drop if indicador_atencion >= 0.57
+*drop if indicador_atencion < 0.42
+*gen targeted1 = 1
+* End target 2024 (promoción 2024)
+
+
+* Focalización ConectaIdeas
+***********
+	
+gen targeted1 = 0
+replace targeted1 = 1 if indicador_atencion > 0.75 & acompanatic == 1 & foc2020_tablets == 1 & eib == 0
+
+gen mat_total_cuarto_prim = mat_total_cuarto if d_niv_mod == "Primaria"
+gen mat_total_quinto_prim = mat_total_quinto if d_niv_mod == "Primaria"
+gen mat_total_sexto_prim = mat_total_sexto if d_niv_mod == "Primaria"
+gen mat_total_primero_sec = mat_total_primero if d_niv_mod == "Secundaria"
+gen mat_total_segundo_sec = mat_total_segundo if d_niv_mod == "Secundaria"
+
+gen mat_recup_cuarto_prim = mat_recup_cuarto if d_niv_mod == "Primaria"
+gen mat_recup_quinto_prim = mat_recup_quinto if d_niv_mod == "Primaria"
+gen mat_recup_sexto_prim = mat_recup_sexto if d_niv_mod == "Primaria"
+gen mat_recup_primero_sec = mat_recup_primero if d_niv_mod == "Secundaria"
+gen mat_recup_segundo_sec = mat_recup_segundo if d_niv_mod == "Secundaria"
 
 
 ** Generar focalización de alumnos
@@ -50,12 +84,18 @@ replace targeted3=1 if indicador_atencion>=0.90 & eib == 1
 *local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo mat_recup_tercero
 
 * Focalización cuarto a sexto
-local	grado_focalizado_total 		mat_total_cuarto mat_total_quinto mat_total_sexto
-local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto
+*local	grado_focalizado_total 		mat_total_cuarto mat_total_quinto mat_total_sexto
+*local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto
 
 * Focalización primero a sexto
 *local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero mat_total_cuarto mat_total_quinto mat_total_sexto
 *local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto mat_recup_cuarto mat_recup_quinto mat_recup_sexto
+
+
+* Focalización de cuarto-sexto primaria y primero-segundo secundaria
+
+local	grado_focalizado_total 		mat_total_cuarto_prim mat_total_quinto_prim mat_total_sexto_prim mat_total_primero_sec mat_total_segundo_sec
+local	grado_focalizado_remedial 	mat_recup_cuarto_prim mat_recup_quinto_prim mat_recup_sexto_prim mat_recup_primero_sec mat_recup_segundo_sec
 
 * Generamos total de alumnos en grados seleccionados
 egen alumno_grado_total = rowtotal(`grado_focalizado_total'), missing
@@ -91,8 +131,6 @@ drop alumno_grado_total alumno_grado_remedial proporcion_guiada_foc alum_ece
 * Agregamos label a indicador
 label variable indicador_atencion	"Indicador de necesidad de atención"
 label variable targeted1			"Focalizacion Escenario 1"
-label variable targeted2			"Focalizacion Escenario 2"
-label variable targeted3			"Focalizacion Escenario 3"
 label variable docente_remedial		"Número de docentes remediales requeridos"
 label variable alumnos_focalizados	"Número de alumnos focalizados"
 

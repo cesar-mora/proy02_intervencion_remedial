@@ -15,7 +15,7 @@ use 	"$clean/data_focalizacion.dta", clear
 *----------------------------------
 
 * Mantenemos primaria
-keep if d_niv_mod == "Primaria"
+*keep if d_niv_mod == "Primaria"
 
 tab area_21 targeted1, missing
 
@@ -29,7 +29,7 @@ gen cubiertas = 1 if acompanatic == 1 | acomp_pedagogico == 1 | targeted1 == 1
 
 * Generamos tabla resumen 1 (cobertura)
 collapse 	(sum) n_ie  targeted1 acompanatic acomp_pedagogico cubiertas ///
-			(mean) indicador_atencion, by(dareacenso  eib d_cod_car)
+			(mean) indicador_atencion, by(d_niv_mod eib d_cod_car)
 			
 export excel "$output/tabla_resumen_1.xlsx", sheet ("tabla_resumen_1") replace firstrow(variables) locale(es)
 
@@ -56,7 +56,6 @@ sum indicador_atencion if eib == 1 & d_cod_car == "Polidocente Completo" & darea
 sum indicador_atencion if eib == 1 & d_cod_car == "No disponible" & targeted1 == 1
 
 
-
 * Tabla resumen 2 (estadisticas descriptivas)
 *----------------------------------
 
@@ -65,7 +64,6 @@ keep if d_niv_mod == "Primaria"
 keep if targeted1 == 1
 
 collapse 	(sum)   alumnos_focalizados docente_remedial, by(dareacenso eib d_cod_car)
-
 
 
 * Colapsar a nivel UE

@@ -230,7 +230,7 @@ egen ind_mate_ece_sec = rowlast (mate_inicio_ece_2018 mate_inicio_ece_2019) if d
 
 rename tipo_servicio tipo_servicio_qaliwarma
 
-keep cod_mod anexo d_estado ind_lenguaje_ece_prim ind_mate_ece_prim ind_lenguaje_ece_sec ind_mate_ece_sec tipo_servicio_qaliwarma d_qaliwarma forma_eib eib nivel_ebr_noebr
+keep cod_mod anexo d_estado ind_lenguaje_ece_prim ind_mate_ece_prim ind_lenguaje_ece_sec ind_mate_ece_sec tipo_servicio_qaliwarma d_qaliwarma forma_eib eib nivel_ebr_noebr foc2020_tablets
 
 tempfile base_integrada
 save `base_integrada'

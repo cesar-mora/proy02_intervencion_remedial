@@ -16,31 +16,11 @@
 	use 	"$clean/data_focalizacion.dta", clear
 	
 	
-	* Target 2022
+	* Mantenemos a IIEE focalizadas
 	keep if targeted1 == 1
-	* End Target 2022
 	
-	* Target 2023
-	*gen targeted1_2023=0
-	*replace targeted1_2023=1 if indicador_focalizacion>=0.72 & eib ==0
-	*keep if targeted1_2023 == 1
-	* End Target 2023
-	
-	* Target 2024 (promoción 2023)
-	*drop if eib == 1
-	*drop if indicador_focalizacion < 0.72
-	*drop if indicador_focalizacion >= 0.75
-	*gen targeted1_2024 = 1
-	* End target 2024
-	
-	* Target 2024 (promoción 2024)
-	*drop if eib == 1
-	*drop if indicador_focalizacion >= 0.72
-	*drop if indicador_focalizacion < 0.62
-	*gen targeted1_2024 = 1
-	* End target 2024 (promoción 2024)
-	
-	keep if d_niv_mod == "Primaria"
+	* Mantenemos primaria
+	*keep if d_niv_mod == "Primaria"
 	
 	* Renombrar variables
 	

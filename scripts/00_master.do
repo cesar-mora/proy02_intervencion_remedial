@@ -11,7 +11,7 @@
 * 						    3
 
 *Establecer este valor para el usuario que actualmente usa el script
-global user  2
+global user  1
 	
 * Definir Globales
 * ---------------------
@@ -22,7 +22,7 @@ if $user == 1 {
 }
 
 if $user == 1 {
-       global onedrive 		"/Users/bran/Documents/GitHub/intervencion_remedial"
+       global onedrive 		"/Users/bran/OneDrive - Ministerio de Educación/MINEDU_Brandon/2022/01_estudios_data/02_intervencion_remedial"
 }
 
 * Usuario 2
