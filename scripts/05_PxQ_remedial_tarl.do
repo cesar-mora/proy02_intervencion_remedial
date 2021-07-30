@@ -20,7 +20,7 @@
 	keep if targeted1 == 1
 	
 	* Mantenemos primaria
-	*keep if d_niv_mod == "Primaria"
+	keep if d_niv_mod == "Primaria"
 	
 	* Renombrar variables
 	

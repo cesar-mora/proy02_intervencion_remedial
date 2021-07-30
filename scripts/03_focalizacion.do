@@ -20,9 +20,6 @@ use 	"$clean/data_construida.dta", replace
 * Generamos indicador de atención único - primaria y secundaria están divididas por cod_mod
 egen indicador_atencion = rowlast(indicador_atencion_prim indicador_atencion_sec)
 
-* Generamos indicador de ece lenguaje
-egen ece_lenguaje = rowlast(ind_leng_ece_primaria ind_leng_ece_secundaria)
-
 * Eliminamos indicadores de atención individuales
 drop indicador_atencion_prim indicador_atencion_sec
 
@@ -33,8 +30,8 @@ drop indicador_atencion_prim indicador_atencion_sec
 ***********
 
 * Escenario 1 (2022)
-*gen targeted1=0
-*replace targeted1=1 if indicador_atencion>=0.61 & eib != 1
+gen targeted1=0
+replace targeted1=1 if indicador_atencion>=0.61 & eib != 1 & d_niv_mod == "Primaria"
 
 * Target 2023 (todos los considerados el 2022 + 20% de IIEE
 *gen targeted1=0
@@ -60,28 +57,28 @@ drop indicador_atencion_prim indicador_atencion_sec
 * Focalización ConectaIdeas
 ***********
 	
-gen targeted1 = 0
-replace targeted1 = 1 if indicador_atencion > 0.75 & acompanatic == 1 & foc2020_tablets == 1 & eib == 0
+* gen targeted1 = 0
+* replace targeted1 = 1 if indicador_atencion > 0.75 & acompanatic == 1 & foc2020_tablets == 1 & eib == 0
 
-gen mat_total_cuarto_prim = mat_total_cuarto if d_niv_mod == "Primaria"
-gen mat_total_quinto_prim = mat_total_quinto if d_niv_mod == "Primaria"
-gen mat_total_sexto_prim = mat_total_sexto if d_niv_mod == "Primaria"
-gen mat_total_primero_sec = mat_total_primero if d_niv_mod == "Secundaria"
-gen mat_total_segundo_sec = mat_total_segundo if d_niv_mod == "Secundaria"
+* gen mat_total_cuarto_prim = mat_total_cuarto if d_niv_mod == "Primaria"
+* gen mat_total_quinto_prim = mat_total_quinto if d_niv_mod == "Primaria"
+* gen mat_total_sexto_prim = mat_total_sexto if d_niv_mod == "Primaria"
+* gen mat_total_primero_sec = mat_total_primero if d_niv_mod == "Secundaria"
+* gen mat_total_segundo_sec = mat_total_segundo if d_niv_mod == "Secundaria"
 
-gen mat_recup_cuarto_prim = mat_recup_cuarto if d_niv_mod == "Primaria"
-gen mat_recup_quinto_prim = mat_recup_quinto if d_niv_mod == "Primaria"
-gen mat_recup_sexto_prim = mat_recup_sexto if d_niv_mod == "Primaria"
-gen mat_recup_primero_sec = mat_recup_primero if d_niv_mod == "Secundaria"
-gen mat_recup_segundo_sec = mat_recup_segundo if d_niv_mod == "Secundaria"
+* gen mat_recup_cuarto_prim = mat_recup_cuarto if d_niv_mod == "Primaria"
+* gen mat_recup_quinto_prim = mat_recup_quinto if d_niv_mod == "Primaria"
+* gen mat_recup_sexto_prim = mat_recup_sexto if d_niv_mod == "Primaria"
+* gen mat_recup_primero_sec = mat_recup_primero if d_niv_mod == "Secundaria"
+* gen mat_recup_segundo_sec = mat_recup_segundo if d_niv_mod == "Secundaria"
 
 
 ** Generar focalización de alumnos
 *--------------------------------------------
 
 * Focalización primero a tercero
-*local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero
-*local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo mat_recup_tercero
+local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero
+local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo mat_recup_tercero
 
 * Focalización cuarto a sexto
 *local	grado_focalizado_total 		mat_total_cuarto mat_total_quinto mat_total_sexto
@@ -93,10 +90,14 @@ gen mat_recup_segundo_sec = mat_recup_segundo if d_niv_mod == "Secundaria"
 
 
 * Focalización de cuarto-sexto primaria y primero-segundo secundaria
+*local	grado_focalizado_total 		mat_total_cuarto_prim mat_total_quinto_prim mat_total_sexto_prim mat_total_primero_sec mat_total_segundo_sec
+*local	grado_focalizado_remedial 	mat_recup_cuarto_prim mat_recup_quinto_prim mat_recup_sexto_prim mat_recup_primero_sec mat_recup_segundo_sec
 
-local	grado_focalizado_total 		mat_total_cuarto_prim mat_total_quinto_prim mat_total_sexto_prim mat_total_primero_sec mat_total_segundo_sec
-local	grado_focalizado_remedial 	mat_recup_cuarto_prim mat_recup_quinto_prim mat_recup_sexto_prim mat_recup_primero_sec mat_recup_segundo_sec
-
+* Focalizacion secundaria
+* local	grado_focalizado_total 		mat_total_primero mat_total_segundo
+* local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo
+ 
+ 
 * Generamos total de alumnos en grados seleccionados
 egen alumno_grado_total = rowtotal(`grado_focalizado_total'), missing
 

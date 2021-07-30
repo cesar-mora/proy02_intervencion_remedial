@@ -6,24 +6,24 @@
 * --------------------
 
 *Número de usuario:
-* PC Analista UP 18			1
-* Brandon Casa 				2
-* 						    3
+* Usuario 1					1
+* PC Analista UP 18			2
+* Brandon Casa 				3
 
 *Establecer este valor para el usuario que actualmente usa el script
-global user  1
+global user  2
 	
 * Definir Globales
 * ---------------------
-
 * Usuario 1
 if $user == 1 {
-       global proyecto 		"B:/OneDrive - Ministerio de Educación/unidad_B/2022/1. Estudios Data/proy02_intervencion_remedial"
+       global proyecto 		" " // Incluir ruta si se clona proyecto desde GitHub
 }
 * Usuario 2
 if $user == 2 {
-       global proyecto 		"/Users/bran/Documents/GitHub/intervencion_remedial"
+       global proyecto 		"B:/OneDrive - Ministerio de Educación/unidad_B/2022/1. Estudios Data/proy02_intervencion_remedial"
 }
+
 
 	* Globales
 	global scripts			"$proyecto/scripts"
@@ -105,7 +105,7 @@ if (1) {
 
 
 *------------------------------------------------------------------
-* Generar PxQ
+* Generar PxQ - TaRL
 
 if (1) {
 	do "$scripts/05_PxQ_remedial_tarl.do"		
