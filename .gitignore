@@ -142,3 +142,4 @@ dmypy.json
 *.xlsx
 *.sav
 data/raw/imputacion_ece_eib_old.csv
+.DS_Store
