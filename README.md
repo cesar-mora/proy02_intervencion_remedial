@@ -1,6 +1,6 @@
-# Repositorio del proyecto de intervención Remedial
+# Repositorio de la estrategia de Educación Remedial
 
-Este repositorio contiene el código para replicar los cálculos de la focalización y costeo de la intervención remedial (Teaching at the Right Level - TaRL).
+Este repositorio contiene el código para replicar los cálculos de la focalización y costeo de la intervención remedial Teaching at the Right Level - TaRL y ConectaIdeas.
 
 Si encuentras algún problema para correr el código o reproducir los resultados, por favor [crea un `Informe de problemas`](https://github.com/analistaup29/proy02_intervencion_remedial/issues/new) en este repositorio.
 
@@ -28,7 +28,20 @@ Instrucciones para replicar
 3. Inicia sesión en GitHub Desktop con tu usuario Github.
 5. Haz click en el botón verde `Code` que se muestra arriba de la lista de archivos en este repositorio, haz click en la opción `Open with GitHub Desktop`.
 6. Abre la ruta del repositorio clonado y navega a `data/raw`.
-7. La data utilizada se encuentra en el Disco B de MINEDU. Ve a `B:\OneDrive - Ministerio de Educación\unidad_B\2022\1. Estudios Data\proy02_intervencion_remedial` utilizando el VPN. Copia esta data en el folder `data/raw`.
+7. La data utilizada se encuentra en la Unidad B de Minedu. Ve a `B:\OneDrive - Ministerio de Educación\unidad_B\2022\1. Estudios Data\proy02_intervencion_remedial` utilizando el VPN. Copia esta data en el folder `data/raw`.
 8. En el folder `scripts` encontrarás un script llamado `master.do`.
 9. Para correr el código abre `master.do` y copia la ruta del repositorio clonado en la fila 21 (usuario 0).
 10. Los outputs se guardarán en la carpeta `output` y las tablas finales se puede ver en [Google Sheets](https://docs.google.com/spreadsheets/d/1GHUOIn-mRkvh-w5rlBTjIUvWrSOHmztyB4JQupqlpZs/edit?usp=sharing)
+
+Scripts
+---------------------------
+
+| Script | Descripción | Input | Output |
+|--------|-------------|-------|--------|
+| 00_master.do | Corre el código desde un script centralizado |  |  |
+| 01_cleandata.do | Une las bases de datos y mantiene IIEE de interés | raw/Padron_web.dta <br> raw/Base_padrones_2022.xlsx <br> raw/Padron IIEE AP_2022_caracterización_12JULIO.xlsx <br> raw/Padron_propuesto_polidocente.xls <br> raw/prima_sec_promocionguiada.dta <br> raw/Padron2020VMJPT210615-Tarde.dta <br> raw/Nexus por cod_mod.dta <br> raw/IE 4P EIB ECE 15-18.xlsx | clean/data_clean.dta |
+| 02_construir_data.do | Construye e inserta labels a variables | clean/data_clean.dta <br> raw/imputacion_ece_primaria.csv <br> raw/imputacion_ece_secundaria.csv | clean/data_construida.dta |
+| 03_focalizacion.do | Identifica a IIEE focalizadas el 2022 | clean/data_construida.dta | clean/data_focalizacion.dta |
+| 04_est_descriptivas.do | Genera estadísticas descriptivas | clean/data_focalizacion.dta | output/tabla_resumen_1.xlsx |
+| 05_PxQ_remedial_tarl.do | Genera costeo para TaRL | clean/data_focalizacion.dta | output/PxQ_DREUGEL_TaRL.xlsx <br> output/PxQ_UE_TaRL.xlsx |
+| 06_imputacion_ece.py | Genera valores imputados para IIEE que no participaron en ECE | clean/data_clean.dta | raw/imputacion_ece_primaria.csv <br> raw/imputacion_ece_secundaria.csv |
