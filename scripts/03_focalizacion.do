@@ -23,6 +23,9 @@ egen indicador_atencion = rowlast(indicador_atencion_prim indicador_atencion_sec
 * Eliminamos indicadores de atención individuales
 drop indicador_atencion_prim indicador_atencion_sec
 
+* Generamos indicador de ece lenguaje
+ egen ece_lenguaje = rowlast(ind_leng_ece_primaria ind_leng_ece_secundaria)
+
 ** Generar focalización
 *--------------------------------------------
 
@@ -30,8 +33,8 @@ drop indicador_atencion_prim indicador_atencion_sec
 ***********
 
 * Escenario 1 (2022)
-gen targeted1=0
-replace targeted1=1 if indicador_atencion>=0.61 & eib != 1 & d_niv_mod == "Primaria"
+ gen targeted1=0
+ replace targeted1=1 if indicador_atencion>=0.59 & eib != 1 & d_niv_mod == "Primaria" 
 
 * Target 2023 (todos los considerados el 2022 + 20% de IIEE
 *gen targeted1=0
@@ -57,8 +60,8 @@ replace targeted1=1 if indicador_atencion>=0.61 & eib != 1 & d_niv_mod == "Prima
 * Focalización ConectaIdeas
 ***********
 	
-* gen targeted1 = 0
-* replace targeted1 = 1 if indicador_atencion > 0.75 & acompanatic == 1 & foc2020_tablets == 1 & eib == 0
+ *gen targeted1 = 0
+ *replace targeted1 = 1 if indicador_atencion > 0.35 & acompanatic == 1 & foc2020_tablets == 1 & eib == 0 & d_niv_mod == "Secundaria" 
 
 * gen mat_total_cuarto_prim = mat_total_cuarto if d_niv_mod == "Primaria"
 * gen mat_total_quinto_prim = mat_total_quinto if d_niv_mod == "Primaria"
@@ -77,16 +80,16 @@ replace targeted1=1 if indicador_atencion>=0.61 & eib != 1 & d_niv_mod == "Prima
 *--------------------------------------------
 
 * Focalización primero a tercero
-local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero
-local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo mat_recup_tercero
+*local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero
+*local	grado_focalizado_remedial 	mat_recup_primero mat_recup_segundo mat_recup_tercero
 
 * Focalización cuarto a sexto
 *local	grado_focalizado_total 		mat_total_cuarto mat_total_quinto mat_total_sexto
 *local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto
 
 * Focalización primero a sexto
-*local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero mat_total_cuarto mat_total_quinto mat_total_sexto
-*local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto mat_recup_cuarto mat_recup_quinto mat_recup_sexto
+local	grado_focalizado_total 		mat_total_primero mat_total_segundo mat_total_tercero mat_total_cuarto mat_total_quinto mat_total_sexto
+local	grado_focalizado_remedial 	mat_recup_cuarto mat_recup_quinto mat_recup_sexto mat_recup_cuarto mat_recup_quinto mat_recup_sexto
 
 
 * Focalización de cuarto-sexto primaria y primero-segundo secundaria
