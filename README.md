@@ -2,10 +2,14 @@
 
 Este repositorio contiene el código para replicar los cálculos de la focalización y costeo de la intervención remedial Teaching at the Right Level - TaRL y ConectaIdeas.
 
-Si encuentras algún problema para correr el código o reproducir los resultados, por favor [crea un `Informe de problemas`](https://github.com/analistaup29/proy02_intervencion_remedial/issues/new) en este repositorio.
+## Contenido del repositorio
+- [Código e indicador de focalización](https://github.com/analistaup29/proy02_intervencion_remedial/tree/main/scripts)
+- [PxQ intervenciones](https://github.com/analistaup29/proy02_intervencion_remedial/tree/main/output)
+- [Policy brief](https://github.com/analistaup29/proy02_intervencion_remedial/tree/main/documentacion)
 
-Requerimientos computacionales
-------------------------------
+## Reproducción de resultados
+
+Si encuentras algún problema para correr el código o reproducir los resultados, por favor [crea un `Informe de problemas`](https://github.com/analistaup29/proy02_intervencion_remedial/issues/new) en este repositorio.
 
 ### Requerimientos de software
 
@@ -28,9 +32,9 @@ Instrucciones para replicar
 3. Inicia sesión en GitHub Desktop con tu usuario Github.
 5. Haz click en el botón verde `Code` que se muestra arriba de la lista de archivos en este repositorio, haz click en la opción `Open with GitHub Desktop`.
 6. Abre la ruta del repositorio clonado y navega a `data/raw`.
-7. La data utilizada se encuentra en la Unidad B de Minedu. Ve a `B:\OneDrive - Ministerio de Educación\unidad_B\2022\1. Estudios Data\proy02_intervencion_remedial` utilizando el VPN. Copia esta data en el folder `data/raw`.
-8. En el folder `scripts` encontrarás un script llamado `master.do`.
-9. Para correr el código abre `master.do` y copia la ruta del repositorio clonado en la fila 21 (usuario 0).
+7. La data utilizada se encuentra en la Unidad B del Onedrive de Minedu. Ve a `B:\OneDrive - Ministerio de Educación\unidad_B\2022\1. Estudios Data\proy02_intervencion_remedial\data\raw` utilizando el VPN. Copia esta data en el folder `data/raw` del repositorio clonado. Si eres parte de Minedu y no tienes acceso a la Unidad B, puedes contactarte con el Equipo de Analítica de Datos de la Unidad de Planificación y Presupuesto.
+8. En el folder `scripts` encontrarás un script llamado `00_master.do`.
+9. Para correr el código abre `master.do` y copia la ruta del repositorio clonado, así como el `username` de tu PC en la sección Rutas de Usuario.
 10. Los outputs se guardarán en la carpeta `output` y las tablas finales se puede ver en [Google Sheets](https://docs.google.com/spreadsheets/d/1GHUOIn-mRkvh-w5rlBTjIUvWrSOHmztyB4JQupqlpZs/edit?usp=sharing)
 
 Scripts
