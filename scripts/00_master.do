@@ -4,12 +4,11 @@
 
 // Seleccionar acciones --------------------------------------------------------
 
-	local limpiar_data				1 // Corre script de limpieza de datos
-	local construir_data	      	1 // Corre script de construcción de base de datos
+	local limpiar_data				0 // Corre script de limpieza de datos
+	local construir_data	      	0 // Corre script de construcción de base de datos
 	local focalizacion				1 // Realiza la focalización
-	local est_descriptivas			1 // Exporta estadísticas descriptivas
 	local PxQ_remedial_tarl			1 // Exporta PxQ de intervención TaRL
-	local PxQ_remedial_conectaideas	1 // Exporta PxQ de intervención ConectaIdeas
+	local PxQ_remedial_conectaideas	0 // Exporta PxQ de intervención ConectaIdeas
 
 // Rutas de Usuario ------------------------------------------------------------
     dis        	"`c(username)'"
@@ -29,7 +28,7 @@
 	global github "/Users/bran/Documents/GitHub/intervencion_remedial"
 	}
 	
-// Globales --------------------------------------------------------------------
+// Globales de carpetas --------------------------------------------------------
 
 
 	global scripts			"$github/scripts"
@@ -39,89 +38,57 @@
    
 	set more off, permanent  	
 
+// Elegir estrategias de focalización ------------------------------------------
+
+	** Estrategias de refuerzo coordinadas con DIGBR
+		
+			**** Intervención 14_07
+			global foc_digbr_eje03		1
+	
+		*** Estrategias focalizando al total de alumnos
+		
+			**** Intervención global
+			global foc_digbr_global		0
+			
+			**** Intervención con indicador > 0.90
+			global foc_digbr_90			0
+
+	
+		** Estrategia con techo MEF	
+		global foc_estrategia_mef_12_09	0
+		
 // Correr código ---------------------------------------------------------------	
 
 * Limpiar, unir bases de datos y crear variables de interés
-
 if (`limpiar_data' == 1) {
-	do "$scripts/01_cleandata.do"			// Limpia bases de datos
+	do "$scripts/01_cleandata.do"			
 }
 
-* INPUT
-
-* Padrón web de IIEE			"$raw/Padron_web.dta"
-* Padrón de acompañamientos		"$raw/Base_padrones_2022.xlsx"
-*								"$raw/Padron IIEE AP_2022_caracterización_12JULIO.xlsx"
-*								"$raw/Padron_propuesto_polidocente.xls"
-* Base SIAGIE					"$raw/prima_sec_promocionguiada.dta"
-* Base integrada UPP			"$raw/Padron2020VMJPT210615-Tarde.dta"
-* Base de datos Nexus			"$raw/Nexus por cod_mod.dta"
-* Base de datos ECE EIB			"$raw/IE 4P EIB ECE 15-18.xlsx"
-
-* OUTPUT
-* Base de datos limpia			"$clean/data_clean.dta"
-
-
-
 * Crear indicadores de necesidad de atención
-
 if (`construir_data' == 1) {
 	do "$scripts/02_construir_data.do"		
 }
 
-* INPUT
-
-* Valores ECE imputados			"$raw/imputacion_ece_primaria.csv""
-*								"$raw/imputacion_ece_secundaria.csv"
-*								"$raw/imputacion_ece_eib.csv"
-
-* OUTPUT
-
-* Base construida				"$clean/data_construida.dta"
-* Indicador de necesidad		"$output/indicador_atencion.dta"
-*								"$output/indicador_atencion.xlsx"
-*-------------------------------------------------------------------*
-
-
 *------------------------------------------------------------------
 * Generar focalización
-
 if (`focalizacion' == 1) {
 	do "$scripts/03_focalizacion.do"		
 }
 
-*-------------------------------------------------------------------*
-
-
-*------------------------------------------------------------------
-* Generar estadisticas descriptivas
-
-if (`est_descriptivas' == 1) {
-	do "$scripts/04_est_descriptivas.do"		
-}
-
-*-------------------------------------------------------------------*
-
-
 *------------------------------------------------------------------
 * Generar PxQ - TaRL
-
 if (`PxQ_remedial_tarl' == 1) {
-	do "$scripts/05_PxQ_remedial_tarl.do"		
+	do "$scripts/04_PxQ_remedial_tarl.do"		
 }
 
-*-------------------------------------------------------------------*
-
-
 *------------------------------------------------------------------
-* Generar PxQ - ConectaIdeas
-
+* Generar PxQ - ConectaIdeas (en construcción)
 if (`PxQ_remedial_conectaideas' == 1) {
-	do "$scripts/06_PxQ_remedial_conectaideas.do"		
+	do "$scripts/05_PxQ_remedial_conectaideas.do"		
 }
 
 *-------------------------------------------------------------------*
 
 * Generar imputación basado en distancia
 
-* Se realiza en Python abriendo el archivo "$scripts/07_imputacion_ece.py"
+* Se realiza en Python abriendo el archivo "$scripts/06_imputacion_ece.py"
