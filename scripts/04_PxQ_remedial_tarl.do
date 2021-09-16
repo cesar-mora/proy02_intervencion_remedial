@@ -15,7 +15,15 @@
 
 	*** Focalización
 
-	if ($foc_digbr_eje03 == 1) {
+	if ($foc_digbr_ugel == 1) {
+	use 	"$clean/data_focalizacion_$foc.dta", clear
+	* Mantenemos a IIEE focalizadas
+	keep if targeted1 == 1
+	* Mantenemos IIEE priorizadas
+	keep if (d_niv_mod == "Primaria"	| d_niv_mod == "Secundaria")
+	}	
+	
+	if ($foc_digbr_iiee == 1) {
 	use 	"$clean/data_focalizacion_$foc.dta", clear
 	* Mantenemos a IIEE focalizadas
 	keep if targeted1 == 1
@@ -530,10 +538,10 @@ egen total= rowtotal(mov* pas* via*)
 	replace viat_visi_mentor_anual = `n_acompanamiento'*viat_visi_mentor_anual
 	
 	** Colapsamos a nivel de codooii
-	*collapse (sum) mov_visi_mentor_anual pas_visi_mentor_anual viat_visi_mentor_anual, by(cod_ugel)
+	collapse (sum) mov_visi_mentor_anual pas_visi_mentor_anual viat_visi_mentor_anual, by(cod_ugel)
 	
-	*tempfile traslado_codooii
-	*save `traslado_codooii'
+	tempfile traslado_codooii
+	save `traslado_codooii'
 	
 * ******************************************************************** *
 *     ETAPA 4:  EXPORTAR PxQ
@@ -541,16 +549,16 @@ egen total= rowtotal(mov* pas* via*)
 
 	* Realizamos merge de costo de traslado y metas
 	
-	*use `total', clear
-	*merge 1:1 cod_ugel using `traslado_codooii'
+	use `total', clear
+	merge 1:1 cod_ugel using `traslado_codooii'
 	
 	* Exportar PxQ DREUGEL
 	* ---------------------
 	
-	*keep nom_pliego cod_ugel ///
-	*n_ie n_docente n_estu_total n_mentor ///
-	*cas_mentor_total essalud_mentor_total agui_mentor_total mov_visi_mentor_anual pas_visi_mentor_anual viat_visi_mentor_anual ///
-	*adicional_docente_total ///
-	*material_educativo evaluacion_diagnostica evaluacion_seguimiento capacitacion_mentores capacitacion_docentes
+	keep nom_pliego cod_ugel ///
+	n_ie n_docente n_estu_total n_mentor ///
+	cas_mentor_total essalud_mentor_total agui_mentor_total mov_visi_mentor_anual pas_visi_mentor_anual viat_visi_mentor_anual ///
+	adicional_docente_total ///
+	material_educativo evaluacion_diagnostica evaluacion_seguimiento capacitacion_mentores capacitacion_docentes
 	
-	*export excel "$output/PxQ_DREUGEL_TaRL_$foc.xlsx", sheet ("PXQ_DREUGEL_TaRL") replace firstrow(variables) locale(es)
+	export excel "$output/PxQ_DREUGEL_TaRL_$foc.xlsx", sheet ("PXQ_DREUGEL_TaRL") replace firstrow(variables) locale(es)

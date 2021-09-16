@@ -21,19 +21,50 @@ use 	"$clean/data_construida.dta", replace
 * Focalización TaRL (se eligen en master do file)
 ***********
 
-if ( $foc_digbr_eje03 == 1) {
-global foc foc_digbr_eje03
+
+
+* Focalización a nivel de UGEL e IIEE
+if ( $foc_digbr_ugel == 1) {
+global foc foc_digbr_ugel
+
+** Colapsar indicador de atención a nivel de UGEL
+collapse (first) d_region d_dreugel (mean) indicador_atencion, by(codooii)
+gen ugel_foc = 0
+replace ugel_foc = 1 if indicador_atencion > 0.65
+keep if ugel_foc == 1
+
+tempfile ugel_focalizada
+save `ugel_focalizada'
+
+use 	"$clean/data_construida.dta", replace
+merge m:1 codooii using `ugel_focalizada', nogen keep(match)
+
 gen targeted1=0
 * Target primaria
-replace targeted1=1 if indicador_atencion>=0.81 & d_niv_mod == "Primaria" 
+replace targeted1=1 if indicador_atencion>=0.80 & d_niv_mod == "Primaria" 
 * Target secundaria
-replace targeted1=1 if indicador_atencion>=0.898 & d_niv_mod == "Secundaria"
+replace targeted1=1 if indicador_atencion>=0.87 & d_niv_mod == "Secundaria"
 * Focalización intercalado segundo, cuarto y sexto.
 local	grado_focalizado_total 	mat_total_segundo_prim mat_total_cuarto_prim mat_total_primero_sec mat_total_tercero_sec
 local	grado_focalizado_recup 	mat_recup_segundo_prim mat_recup_cuarto_prim  mat_recup_primero_sec mat_recup_primero_sec 
 
 }
 
+* Focalización a nivel de IIEE
+if ( $foc_digbr_iiee == 1) {
+global foc foc_digbr_iiee
+gen targeted1=0
+* Target primaria
+replace targeted1=1 if indicador_atencion>=0.81 & d_niv_mod == "Primaria" 
+* Target secundaria
+replace targeted1=1 if indicador_atencion>=0.90005 & d_niv_mod == "Secundaria"
+* Focalización intercalado segundo, cuarto y sexto.
+local	grado_focalizado_total 	mat_total_segundo_prim mat_total_cuarto_prim mat_total_primero_sec mat_total_tercero_sec
+local	grado_focalizado_recup 	mat_recup_segundo_prim mat_recup_cuarto_prim  mat_recup_primero_sec mat_recup_primero_sec 
+
+}
+
+* Intervención a todas las IIEE
 if ( $foc_digbr_global == 1) {
 global foc foc_digbr_global
 * Escenario Total (2022)
@@ -45,6 +76,7 @@ local	grado_focalizado_recup 	mat_recup_segundo_prim mat_recup_cuarto_prim mat_r
 
 }
 
+* Intervención al 10% de IIEE con mayor necesidad de atención
 if ( $foc_digbr_90 == 1) {
 global foc foc_digbr_90
 * Escenario Total (2022)
@@ -56,6 +88,7 @@ local	grado_focalizado_recup 	mat_recup_segundo_prim mat_recup_cuarto_prim mat_r
 }
 
 
+* Intervención con techo MEF
 if ( $foc_estrategia_mef_12_09 == 1) {
 global foc foc_estrategia_mef_12_09
 

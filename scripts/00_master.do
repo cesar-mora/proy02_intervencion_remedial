@@ -41,9 +41,12 @@
 // Elegir estrategias de focalización ------------------------------------------
 
 	** Estrategias de refuerzo coordinadas con DIGBR
-		
-			**** Intervención 14_07
-			global foc_digbr_eje03		1
+
+			**** Intervención nivel UGEL
+			global foc_digbr_ugel		1
+	
+			**** Intervención nivel IIEE
+			global foc_digbr_iiee		0
 	
 		*** Estrategias focalizando al total de alumnos
 		
